@@ -18,4 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^blue2factorPageOnYourSite/', 'Blue2FactorPython.views.Blue2Factor', name = 'Blue2Factor'),
 ]

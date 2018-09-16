@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+    <head>
+        <title>Blue2Factor</title>
+        <style>
+        	body {margin:0;font-family:sans-serif;font-weight:bold;height:100%;background-color:#2F2A85;}
+        	{% if deviceVal != '' %}
+				#completeInstall{background-color:#fff;top:72px;position:relative;vertical-align:middle;text-align:center;
+	                font-size:1.2em;font-weight:700;margin:auto;width:311px;height:331px;padding:53px;
+	                border:solid #FF4081;border-radius:17px;border-width:thick;background:white;top:40px;
+	                position: relative;}
+	            #qrCode{margin:auto;width:258px}
+	            #completeInstructions{padding-bottom:37px}
+	        {% elif mobileInstall %}
+                .mainText {font-size: 1.1em;margin-top: 20px;padding-left: 20px;padding-right: 20px;margin-bottom: 20px;color: #2F2A85;}
+                #installCompleteTextBox {margin: auto;background-color: white;border-radius: 8px;position: relative;top: 50px;width: 80vw;
+                    text-align: center;border: 2px solid #ff4081;font-family: sans-serif;}
+                #installCompleteLogo {margin: auto;height: 50vw;width: 50vw;top: 25px;position: relative;}
+	        {% else %}
+          		#accessDenied {top: 11vh; width: 70vw; font-size: 1.3em; position: relative; background-color: white;
+	                border-radius: 25px; border: 2px solid #FF4081; padding: 20px; margin-left: auto;
+	                margin-right: auto; font-family: sans-serif; text-align:center;}
+			{%endif%}
+        </style>
+        <link rel="icon" type="image/png" sizes="32x32" href="https://secure.blue2factor.com/imgFiles/b2f32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="https://secure.blue2factor.com/imgFiles/b2f96.png">
+        <meta name='viewport' content='width=device-width,initial-scale=1.0' />
+        <meta name="theme-color" content="#21007F" />
+    </head>
+    <body style='background-color:#3F51B5'>
+    	<script type="text/javascript" src="https://secure.blue2factor.com/js/b2f.lastest.js"></script>
+        {% if deviceVal != '' %}
+       		<script type="text/javascript" src="https://secure.blue2factor.com/js/qrcode.min.js"></script>
+       		<iframe src='https://secure.blue2factor.com/ifsc?b2f={{devKey}}' width='1' height='1' style='border:0'></iframe>
+           <div id='completeInstall'>
+               <div id='completeInstructions'>
+                   Please use the Blue2Factor app to capture the QR code below.
+               </div>
+               <div id="qrCode">
+               </div>
+           </div>
+           <script>
+               setup("{{devKey}}","{{devVal}}");
+               refreshOnSuccess("{{devVal}}");
+           </script>
+		{% elif mobileInstall %}
+         	<div id='installCompleteLogo'>
+                <img src='https://secure.blue2factor.com/imgFiles/icon.svg' id='installCompleteLogoImg' 
+                	alt='Blue2Factor Logo' style='width:100%'/>
+            </div>
+            <div id='installCompleteTextBox'>
+                <div id='installCompleteTextBoxTitle' class='mainText'>Blue2Factor is installed on your device.</div>
+                <div id='installCompleteTextBoxMsg' class='mainText'>Press your device's home button to exit.</div>
+            </div>
+            <iframe src='https://secure.blue2factor.com/ifsc?b2f={{token}}' width='1' height='1' style="border:0"></iframe>
+            
+            <script>setAllCookies("b2fIdb", "{{token}}");</script>
+		{% else %}
+        	<div id='accessDenied'>Access Denied</div>
+      		<script>startB2fJsCheck();</script>
+		{%endif%}
+    </body>
+</html>
