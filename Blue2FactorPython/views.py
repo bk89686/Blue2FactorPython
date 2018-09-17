@@ -3,7 +3,7 @@ Created on Sep 15, 2018
 
 @author: cjm10
 '''
-from Blue2FactorPython.Utilities import Blue2FactorPython
+from Blue2FactorPython.Utilities.Blue2FactorUtil import B2f
 from django.shortcuts import render
 
 def Blue2Factor(request):
@@ -11,7 +11,7 @@ def Blue2Factor(request):
     return render(request, "Blue2FactorPython/template/blue2factor.html", model)
 
 def getModelValues(request):
-    b2f = Blue2FactorPython.B2f()
+    b2f = B2f()
     deviceId = b2f.getVariable(request, "deviceId")
     deviceVal = b2f.getVariable(request, "deviceVal")
     b2fId = b2f.getVariable(request, "b2fid")
@@ -58,7 +58,7 @@ def buildModel(response, deviceId, deviceVal, b2fId, mobileInstall, fromJs, from
         baseUrl = ""
         outcomeStr = ""
     model = {
-            "coId": Blue2FactorPython.B2f().CO_PUBLIC,
+            "coId": B2f().CO_PUBLIC,
             "fromQr": fromQr,
             "fromJs": fromJs,
             "mobileInstall": mobileInstall,

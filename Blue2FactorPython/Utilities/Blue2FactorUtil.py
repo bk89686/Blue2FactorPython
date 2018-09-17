@@ -10,9 +10,8 @@ import urllib
 import urllib2
 '''This page can be used AS IS with the exception of the CO_PUBLIC and CO_PRIVATE variables'''
 
-
 class B2f(): 
-    #change these!!
+    #change these!
     CO_PUBLIC = "CHANGE_THIS"
     CO_PRIVATE = "AND_THIS" 
     

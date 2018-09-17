@@ -13,10 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
 from django.conf.urls import url
 from django.contrib import admin
+from Blue2FactorPython import views
+admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^blue2factorPageOnYourSite/', 'Blue2FactorPython.views.Blue2Factor', name = 'Blue2Factor'),
+    url(r'^Blue2Factor/', 'views.Blue2Factor', name = 'Blue2Factor'),
 ]
