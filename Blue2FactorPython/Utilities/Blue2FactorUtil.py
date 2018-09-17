@@ -51,7 +51,7 @@ class B2f():
     def b2fValidated(self, request):
         ipAddress = self.getClientIp(request)
         b2fId = self.getCookie(request, "b2fIdb") 
-        referrer = self.getReferrer()
+        referrer = self.getReferrer(request)
         outcome = self.FAILURE
         completionUrl = ""
         try:
@@ -96,10 +96,71 @@ class B2f():
         return request.GET.get(varName, '')
         
     def getReferrer(self, request):
-        return request.referer
+        return request.META.get('HTTP_REFERER')
     
     def getClientIp(self, request):
         return request.META.get('REMOTE_ADDR')
         
     def getCookie(self, request, keyName):
         return request.COOKIES.get(keyName) 
+    
+    def getModelValues(self, request):
+        deviceId = self.getVariable(request, "deviceId")
+        deviceVal = self.getVariable(request, "deviceVal")
+        b2fId = self.getVariable(request, "b2fid")
+        mobile = self.getVariable(request, "mob") == "1"
+        mobileInstall = False
+        fromJs = self.getVariable(request, "fromJs") == "true"
+        fromQr = self.getVariable(request, "fromQr") == "true"
+        response = None
+        if deviceId == "":
+            if b2fId == "" and mobile:
+                mobileInstall = True
+            else:
+                showOutcome = True
+                if b2fId == "":
+                    self.getCookie(request, "b2fIdb")
+                response = self.b2fValidated(request)
+        model = self.buildModel(response, deviceId, deviceVal, b2fId, mobileInstall, fromJs, fromQr, showOutcome)
+        return model
+    
+    def buildModel(self, response, deviceId, deviceVal, b2fId, mobileInstall, fromJs, fromQr, showOutcome):
+        
+        if (response != None):
+            outcome = response.getOutcome()
+            baseUrl = response.getCompletionUrl()
+            if outcome == 1:
+                outcomeStr = "Success!"
+            elif outcome == -1:
+                outcomeStr = "Access Denied"
+            elif outcome == -2:
+                outcomeStr = ("Blue2Factor has blocked access to this page because you do not " + 
+                            "have another registered device that could be found nearby.<br/><br/>To learn more click " + 
+                            "<a href='//www.blue2factor.com/help'>here</a>.")
+            elif outcome == -3:
+                outcomeStr = ("Blue2Factor needs to be resynched on this browser.<br/><br/>To learn more click " + 
+                            "<a href='//www.blue2factor.com/help'>here</a>.")
+            elif outcome == -5:
+                outcomeStr = ("A push notification was sent to your phone.  Please respond to access this site.<br/><br/>To learn more click " + 
+                            "<a href='//www.blue2factor.com/help'>here</a>.")
+            elif outcome == -6:
+                outcomeStr = ("You must open Blue2Factor on your phone to gain access to this site.<br/><br/>To learn more click " + 
+                            "<a href='//www.blue2factor.com/help'>here</a>.")
+        else:
+            outcome = 0
+            baseUrl = ""
+            outcomeStr = ""
+        model = {
+                "coId": B2f().CO_PUBLIC,
+                "fromQr": fromQr,
+                "fromJs": fromJs,
+                "mobileInstall": mobileInstall,
+                "deviceId": deviceId,
+                "deviceVal": deviceVal,
+                "token": b2fId,
+                "showOutcome": showOutcome,
+                "outcome": outcome,
+                "baseUrl": baseUrl,
+                "outcomeString": outcomeStr
+            }
+        return model

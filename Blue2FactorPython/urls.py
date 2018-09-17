@@ -21,5 +21,5 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^Blue2Factor/', 'views.Blue2Factor', name = 'Blue2Factor'),
+    url(r'^blue2factor/', views.Blue2Factor.as_view(), name = 'Blue2Factor'),
 ]
