@@ -12,8 +12,8 @@ import urllib2
 
 class B2f(): 
     #change these!
-    CO_PUBLIC = "CHANGE_THIS"
-    CO_PRIVATE = "AND_THIS" 
+    CO_PUBLIC = "1q7a5efXjoKmGCLxtA"
+    CO_PRIVATE = "X1M6SClblNxpVTixi7" 
     
     #not these
     SUCCESS = 1

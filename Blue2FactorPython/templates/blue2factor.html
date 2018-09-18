@@ -28,10 +28,10 @@
         <meta name="theme-color" content="#21007F" />
     </head>
     <body style='background-color:#3F51B5'>
-    	<script type="text/javascript" src="https://secure.blue2factor.com/js/b2f.lastest.js"></script>
+    	<script type="text/javascript" src="https://secure.blue2factor.com/js/b2f.latest.js"></script>
         {% if deviceVal != '' %}
        		<script type="text/javascript" src="https://secure.blue2factor.com/js/qrcode.min.js"></script>
-       		<iframe src='https://secure.blue2factor.com/ifsc?b2f={{devKey}}' width='1' height='1' style='border:0'></iframe>
+       		<iframe src='https://secure.blue2factor.com/ifsc?b2f={{deviceVal}}' width='1' height='1' style='border:0'></iframe>
            <div id='completeInstall'>
                <div id='completeInstructions'>
                    Please use the Blue2Factor app to capture the QR code below.
@@ -40,8 +40,8 @@
                </div>
            </div>
            <script>
-               setup("{{devKey}}","{{devVal}}");
-               refreshOnSuccess("{{devVal}}");
+               setup("{{deviceVal}}","{{deviceId}}");
+               refreshOnSuccess("{{deviceVal}}");
            </script>
 		{% elif mobileInstall %}
          	<div id='installCompleteLogo'>
