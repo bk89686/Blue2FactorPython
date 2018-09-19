@@ -41,11 +41,11 @@
            </div>
            <script>
                setup("{{deviceVal}}","{{deviceId}}");
-               refreshOnSuccess("{{deviceVal}}");
+               refreshOnSuccess("{{deviceId}}");
            </script>
 		{% elif mobileInstall %}
          	<div id='installCompleteLogo'>
-                <img src='https://secure.blue2factor.com/imgFiles/icon.svg' id='installCompleteLogoImg' 
+                <img src='https://www.blue2factor.com/imgFiles/icon.svg' id='installCompleteLogoImg' 
                 	alt='Blue2Factor Logo' style='width:100%'/>
             </div>
             <div id='installCompleteTextBox'>
@@ -56,8 +56,8 @@
             
             <script>setAllCookies("b2fIdb", "{{token}}");</script>
 		{% else %}
-        	<div id='accessDenied'>Access Denied</div>
-      		<script>startB2fJsCheck();</script>
+        	<div id='accessDenied'>{{outcomeString}}</div>
+      		<script>startB2fJsCheck({{outcome}});</script>
 		{%endif%}
     </body>
 </html>
