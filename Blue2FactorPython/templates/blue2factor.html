@@ -56,7 +56,15 @@
             
             <script>setAllCookies("b2fIdb", "{{token}}");</script>
 		{% else %}
-        	<div id='accessDenied'>{{outcomeString}}</div>
+			{% if fromQr %}
+				{% if outcome == -1 or outcome == -3 %}
+					<div id='accessDenied'>Please wait ...</div>
+				{% else %}
+        			<div id='accessDenied'>{{outcomeString}}</div>
+        		{%endif%}
+        	{% else %}
+        		<div id='accessDenied'>{{outcomeString}}</div>
+        	{%endif%}
       		<script>startB2fJsCheck({{outcome}});</script>
 		{%endif%}
     </body>
