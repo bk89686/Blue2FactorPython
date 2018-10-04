@@ -62,6 +62,7 @@
 				{% else %}
         			<div id='accessDenied'>{{outcomeString}}</div>
         		{%endif%}
+        		<script>b2fJsInit({{outcome}}, '{{coId}}', {{fromQr}}, '{{baseUrl}}');</script>
         	{% else %}
         		<div id='accessDenied'>{{outcomeString}}</div>
         	{%endif%}
