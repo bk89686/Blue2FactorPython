@@ -54,7 +54,10 @@
             </div>
             <iframe src='https://secure.blue2factor.com/ifsc?b2f={{token}}' width='1' height='1' style="border:0"></iframe>
             
-            <script>setAllCookies("b2fIdb", "{{token}}");</script>
+            <script>
+            	setAllCookies("b2fIdb", "{{token}}");
+            	mobileRenavigate();
+            </script>
 		{% else %}
 			{% if fromQr %}
 				{% if outcome == -1 or outcome == -3 %}
