@@ -11,9 +11,8 @@ import urllib2
 '''This page can be used AS IS with the exception of the CO_PUBLIC and CO_PRIVATE variables'''
 
 class B2f(): 
-    #change these!
-    CO_PUBLIC = "1q7a5efXjoKmGCLxtA"
-    CO_PRIVATE = "X1M6SClblNxpVTixi7" 
+    #change this!
+    CO_KEY = "1q7a5efXjoKmGCLxtA"
     
     #not these
     SUCCESS = 1
@@ -58,7 +57,7 @@ class B2f():
             if b2fId == None or b2fId == "":
                 outcome = self.COOKIE_NOT_FOUND
             else:
-                params = {'tok' : b2fId, 'uip': ipAddress, 'b2fKey': self.CO_PRIVATE, 'coId': self.CO_PUBLIC, 
+                params = {'tok' : b2fId, 'uip': ipAddress, 'coId': self.CO_KEY, 
                       'b2fbe': 'bak28', 'referrer': referrer}
                 data = urllib.urlencode(params)
                 opener = urllib2.build_opener()
@@ -151,7 +150,7 @@ class B2f():
             baseUrl = ""
             outcomeStr = ""
         model = {
-                "coId": B2f().CO_PUBLIC,
+                "coId": B2f().CO_KEY,
                 "fromQr": fromQr,
                 "fromJs": fromJs,
                 "mobileInstall": mobileInstall,
