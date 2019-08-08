@@ -12,7 +12,7 @@ import urllib2
 
 class B2f(): 
     #change this!
-    CO_KEY = "1q7a5efXjoKmGCLxtA"
+    COMPANY_KEY = "1q7a5efXjoKmGCLxtA"
     
     #not these
     SUCCESS = 1
